@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Annabelle's Canvas</title>
+  <style type="text/css">
+    body, html {
+      height: 100%;
+			margin: 0;
+      width: 100%;
+    }
+
+		canvas{
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+  <canvas id="myCanvas"></canvas>
+  <script>
+    var canvas = document.getElementById("myCanvas"); // get the element with the id "myCanvas"
+    var ctx = canvas.getContext("2d"); // create 2d object to draw on
+		var radius = 8; // set radius for arc
+		var arcColor = "red"; // set color to red
+
+    canvas.width = window.innerWidth * .8; // set canvas width to 80% of window width
+    canvas.height = window.innerHeight * .8; // set canvas height to 80% of window height
+
+		// mouse and keyboard event listeners
+		canvas.addEventListener("mousedown", mouseDown); // add a mousedown event to the canvas element, run the "mouseDown" function
+    canvas.addEventListener("mousemove", draw); // add a mousemove event to the canvas element, run the "draw" function
+    canvas.addEventListener("mouseup", mouseUp);  // add a mouseup event to the canvas element, run the "mouseUp" function
+		window.addEventListener("keydown", checkKeyPress); // check for key down on document
+
+		// mobile event listeners
+		canvas.addEventListener("touchstart", touchStart, false);
+		canvas.addEventListener("touchmove", drawTouch, false);
+		canvas.addEventListener("touchEnd", touchEnd, false);
+		window.addEventListener("orientationchange", function() {
+			canvas.width = screen.availwidth * .8; // set canvas width to 80% of window width
+	    canvas.height = screen.availHeight * .8; // set canvas height to 80% of window height
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+		});
+
+    var isMouseDown, isTouchDown = false; // declare isMouseDown and isTouchDown variable, to track when mouse/finger is down
+
+    function mouseDown() {
+      isMouseDown = true; // set isMouseDown to true to allow drawing
+    }
+
+    function draw() {
+      if(isMouseDown) {
+        var canvasX = window.event.pageX - canvas.offsetLeft; // get x position to canvas by subtracting canvas left position from mouse position
+        var canvasY = window.event.pageY - canvas.offsetTop; // get y position to canvas by subtracting canvas top position from mouse position
+        ctx.beginPath(); // begin a path to draw
+        ctx.fillStyle = arcColor;
+        ctx.arc(canvasX, canvasY, radius, 0, 2*Math.PI); // context.arc(x position, y position, arc radius, starting angle, end angle)
+        ctx.fill(); // fill the arc
+      }
+    }
+
+    function mouseUp() {
+      isMouseDown = false; // set isMouseDown to false to disable drawing
+      ctx.closePath(); // close drawing path
+    }
+
+		function checkKeyPress() {
+			var keyCode = window.event.which;
+			console.log(keyCode);
+			if(keyCode == "66") {
+				arcColor = "blue";
+			} else if(keyCode == "71") {
+				arcColor = "green";
+			} else if(keyCode == "82") {
+				arcColor = "red";
+			} else if(keyCode == "89") {
+				arcColor = "yellow";
+			} else if(keyCode == "38") {
+				radius = radius + 1;
+			} else if(keyCode == "40") {
+				if(radius > 1) {
+					radius = radius - 1;
+				}
+			} else if(keyCode == "32") {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+			}
+		}
+
+		function touchStart() {
+			isTouchDown = true;
+		}
+
+		function drawTouch() {
+			if(isTouchDown) {
+        var canvasX = window.event.targetTouches[0].pageX - canvas.offsetLeft; // get x position to canvas by subtracting canvas left position from finger position
+        var canvasY = window.event.targetTouches[0].pageY - canvas.offsetTop; // get y position to canvas by subtracting canvas top position from finger position
+        ctx.beginPath(); // begin a path to draw
+        ctx.fillStyle = arcColor;
+        ctx.arc(canvasX, canvasY, radius, 0, 2*Math.PI); // context.arc(x position, y position, arc radius, starting angle, end angle)
+        ctx.fill(); // fill the arc
+      }
+		}
+
+		function touchEnd() {
+			isTouchDown = false;
+		}
+  </script>
+</body>
+</html>
