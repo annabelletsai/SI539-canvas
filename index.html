@@ -18,8 +18,11 @@
 </head>
 <body>
   <canvas id="myCanvas"></canvas>
+	<br>
+	<input type="color" id="myColorPicker" name="head" value="#ff0000">
   <script>
     var canvas = document.getElementById("myCanvas"); // get the element with the id "myCanvas"
+		var colorPicker = document.getElementById("myColorPicker");
     var ctx = canvas.getContext("2d"); // create 2d object to draw on
 		var radius = 8; // set radius for arc
 		var arcColor = "red"; // set color to red
@@ -32,6 +35,9 @@
     canvas.addEventListener("mousemove", draw); // add a mousemove event to the canvas element, run the "draw" function
     canvas.addEventListener("mouseup", mouseUp);  // add a mouseup event to the canvas element, run the "mouseUp" function
 		window.addEventListener("keydown", checkKeyPress); // check for key down on document
+
+		// color picker change event
+		colorPicker.addEventListener("change", updateColor);
 
 		// mobile event listeners
 		canvas.addEventListener("touchstart", touchStart, false);
@@ -104,6 +110,10 @@
 
 		function reloadPage() {
 			location.reload();
+		}
+
+		function updateColor(e) {
+			arcColor = e.target.value;
 		}
   </script>
 </body>
