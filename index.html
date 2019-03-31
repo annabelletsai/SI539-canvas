@@ -38,7 +38,7 @@
 		canvas.addEventListener("touchmove", drawTouch, false);
 		canvas.addEventListener("touchEnd", touchEnd, false);
 		window.addEventListener("orientationchange", function() {
-			canvas.width = screen.availwidth * .8; // set canvas width to 80% of window width
+			canvas.width = screen.availWidth * .8; // set canvas width to 80% of window width
 	    canvas.height = screen.availHeight * .8; // set canvas height to 80% of window height
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 		});
