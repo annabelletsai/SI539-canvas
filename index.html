@@ -37,11 +37,7 @@
 		canvas.addEventListener("touchstart", touchStart, false);
 		canvas.addEventListener("touchmove", drawTouch, false);
 		canvas.addEventListener("touchEnd", touchEnd, false);
-		window.addEventListener("orientationchange", function() {
-			canvas.width = screen.availWidth * .8; // set canvas width to 80% of window width
-	    canvas.height = screen.availHeight * .8; // set canvas height to 80% of window height
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-		});
+		window.addEventListener("orientationchange", reloadPage, false);
 
     var isMouseDown, isTouchDown = false; // declare isMouseDown and isTouchDown variable, to track when mouse/finger is down
 
@@ -83,7 +79,7 @@
 					radius = radius - 1;
 				}
 			} else if(keyCode == "32") {
-				location.reload(); // reload page to reset canvas
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
 			}
 		}
 
@@ -104,6 +100,10 @@
 
 		function touchEnd() {
 			isTouchDown = false;
+		}
+
+		function reloadPage() {
+			location.reload();
 		}
   </script>
 </body>
