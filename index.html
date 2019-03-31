@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Annabelle's Canvas</title>
   <style type="text/css">
     body, html {
@@ -83,7 +83,7 @@
 					radius = radius - 1;
 				}
 			} else if(keyCode == "32") {
-				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				location.reload(); // reload page to reset canvas
 			}
 		}
 
